@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# Environment Variables (Secrets)
+.env
+
+# Storage & Temp Data
+data/memory.json
+exports/*.html
+exports/*.json
+exports/*.md
+exports/*.ics
+
+# IDE & Editor
+.vscode/
+.idea/
+*.swp
+
+# Binaries
+cloudflared.exe
+

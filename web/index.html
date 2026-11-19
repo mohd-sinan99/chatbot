@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Travel Planner AI Agent</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="logo">
+            <span class="icon">✈️</span>
+            <h1>Smart Travel Planner <span class="badge">AI Agent</span></h1>
+        </div>
+        <div class="header-actions">
+            <button id="btn-compare-budget" class="btn btn-secondary">💰 Compare Tiers</button>
+            <button id="btn-export-html" class="btn btn-primary">🌐 Export / Print</button>
+            <button id="btn-reset" class="btn btn-outline">🔄 Reset</button>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <!-- Left Pane: Conversational Chat Interface -->
+        <section class="chat-pane">
+            <div class="quick-prompts">
+                <span class="quick-label">Try:</span>
+                <button class="pill" data-prompt="Plan a two-day trip to Wayanad for two people with a total budget of ₹5,000 from Bangalore">🌿 Wayanad (₹5,000)</button>
+                <button class="pill" data-prompt="Suggest weekend getaway ideas from Bangalore">💡 Suggest Ideas</button>
+                <button class="pill" data-prompt="Make Day 1 more relaxing">☕ Relax Day 1</button>
+                <button class="pill" data-prompt="Compare budget packages">📊 Budget Tiers</button>
+            </div>
+
+            <div id="chat-messages" class="chat-messages">
+                <div class="message agent-msg">
+                    <div class="msg-avatar">🤖</div>
+                    <div class="msg-content">
+                        <p><strong>Hello! I am your Smart Travel Planner AI Agent.</strong></p>
+                        <p>Tell me where you want to go, your dates, budget, or starting city. I will research sights, check operating hours & weather, pace your days realistically, and calculate a detailed budget!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="agent-thinking" class="agent-thinking hidden">
+                <div class="spinner"></div>
+                <span id="thinking-text">Agent is thinking, researching attractions & pacing days...</span>
+            </div>
+
+            <form id="chat-form" class="chat-input-bar">
+                <input type="text" id="user-input" placeholder="Type your travel request (e.g. Plan a 2-day trip to Wayanad)..." autocomplete="off" required>
+                <button type="submit" id="send-btn" class="btn btn-primary">Send</button>
+            </form>
+        </section>
+
+        <!-- Right Pane: Live Trip Plan & Budget Dashboard -->
+        <section class="dashboard-pane">
+            <div id="no-trip-placeholder" class="placeholder-state">
+                <div class="placeholder-icon">🗺️</div>
+                <h3>No Active Trip Plan</h3>
+                <p>Send a message in the chat or click one of the suggestion pills above to generate a tailored itinerary.</p>
+            </div>
+
+            <div id="trip-dashboard" class="trip-dashboard hidden">
+                <!-- Trip Summary Header -->
+                <div class="trip-header-card">
+                    <div>
+                        <h2 id="dash-destination">Wayanad, Kerala</h2>
+                        <div class="trip-meta">
+                            <span id="dash-duration" class="meta-tag">2 Days</span>
+                            <span id="dash-travelers" class="meta-tag">2 Travelers</span>
+                            <span id="dash-origin" class="meta-tag">From Bangalore</span>
+                        </div>
+                    </div>
+                    <div id="dash-weather" class="weather-badge">
+                        <span class="weather-temp">--°C</span>
+                        <span class="weather-cond">Loading weather...</span>
+                    </div>
+                </div>
+
+                <!-- Budget Summary Bar -->
+                <div class="budget-card">
+                    <div class="budget-header">
+                        <h3>Estimated Budget</h3>
+                        <span id="dash-budget-status" class="status-badge status-ok">Within Budget</span>
+                    </div>
+                    <div class="budget-metrics">
+                        <div class="metric">
+                            <span class="label">Total Estimated</span>
+                            <span id="dash-total-budget" class="value">₹0.00</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Per Person</span>
+                            <span id="dash-per-person" class="value">₹0.00</span>
+                        </div>
+                        <div class="metric">
+                            <span class="label">Target Budget</span>
+                            <span id="dash-target-budget" class="value">₹0.00</span>
+                        </div>
+                    </div>
+                    <div class="budget-breakdown-list">
+                        <div class="breakdown-item">
+                            <span>🏨 Accommodation</span>
+                            <span id="cost-stay">₹0</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span>🍽️ Food & Dining</span>
+                            <span id="cost-food">₹0</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span>🚗 Local Transit</span>
+                            <span id="cost-commute">₹0</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span>🎟️ Sightseeing / Fees</span>
+                            <span id="cost-activities">₹0</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span>🛡️ Contingency (8%)</span>
+                            <span id="cost-buffer">₹0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Daily Schedule Cards -->
+                <div class="schedule-section">
+                    <h3>Day-by-Day Schedule</h3>
+                    <div id="days-container" class="days-container"></div>
+                </div>
+
+                <!-- Travel Tips & Safety -->
+                <div class="advisory-card">
+                    <h3>🛡️ Travel Tips & Safety Advisories</h3>
+                    <ul id="tips-list"></ul>
+                </div>
+
+                <!-- Anti-Hallucination Disclaimer Banner -->
+                <div class="disclaimer-banner">
+                    <strong>⚠️ Notice:</strong> All prices, schedules, and dining suggestions are estimates. No bookings are confirmed until completed directly with official service providers.
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="/app.js"></script>
+</body>
+</html>
